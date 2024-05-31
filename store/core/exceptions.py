@@ -1,10 +1,14 @@
 class BaseException(Exception):
-    message: str = "Internal Server Error"
+    default_message: str = "Internal Server Error"
 
     def __init__(self, message: str | None = None) -> None:
-        if message:
-            self.message = message
+        super().__init__(message or self.default_message)
+        self.message = message or self.default_message
 
 
 class NotFoundException(BaseException):
-    message = "Not Found"
+    default_message = "Not Found"
+
+
+class InsertionException(BaseException):
+    default_message = "Invalid data"
